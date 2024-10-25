@@ -9,24 +9,39 @@ const {
     mostrarListadoChecklist
 } = require("./helpers/inquirer");
 
+const Busquedas = require("./models/busquedas");
+
 
 
 const main = async () => {
 
+    const busquedas = new Busquedas();
+
     //The option
     let opt = '';
+
 
     do{
 
         //We catch the option selected
         opt = await inquirerMenu();
-        
-        console.log({opt});
 
         //We show the option selected
         switch (opt) {
             case 1:
-                console.log('Buscar ciudad');
+
+                const lugar = await leerInput('Ciudad: ');
+                console.log(lugar);
+
+
+
+                console.log('\nInformacion de la ciudad \n'.green);
+                console.log('Ciudad: '.cyan);
+                console.log('Lat: '.cyan);
+                console.log('Lng: '.cyan);
+                console.log('Temperatura: '.cyan);
+                console.log('Minima: '.cyan);
+                console.log('Maxima: '.cyan);
                 break;
         
             case 2:
