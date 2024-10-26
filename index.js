@@ -1,4 +1,4 @@
-
+const axios = require('axios');
 // Imports
 const {
     inquirerMenu,
@@ -31,7 +31,7 @@ const main = async () => {
             case 1:
 
                 const lugar = await leerInput('Ciudad: ');
-                console.log(lugar);
+                await busquedas.ciudad(lugar);
 
 
 

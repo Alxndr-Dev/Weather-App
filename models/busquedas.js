@@ -1,4 +1,5 @@
-
+//We use axios to make the request to the API
+const axios = require('axios');
 
 
 class Busquedas {
@@ -12,11 +13,18 @@ class Busquedas {
 
     async ciudad( lugar = ''){
 
+        try{
         //Peticion HTTP
-        console.log(lugar);
+        //console.log('Ciudad',lugar);
 
+        const resp = await axios.get('https://reqres.in/api/users?page=2')
+        console.log(resp.data.per_page);
 
         return []; //Return the places that match the search
+            
+        }catch(error){
+            return []; //Return the places that match the search
+        }
     }
 
 }
