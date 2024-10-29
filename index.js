@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const axios = require('axios');
 // Imports
 const {
@@ -11,7 +13,7 @@ const {
 
 const Busquedas = require("./models/busquedas");
 
-
+console.log(process.env);
 
 const main = async () => {
 
