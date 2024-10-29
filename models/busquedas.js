@@ -10,15 +10,28 @@ class Busquedas {
         //TODO: leer DB si existe
     }
 
+    get paramsMapbox(){
+        return {
+            'limit': 5,
+            'proximity': 'ip',
+            'language': 'es',
+            'access_token': ''
+        }
+    }
 
     async ciudad( lugar = ''){
 
         try{
-        //Peticion HTTP
-        //console.log('Ciudad',lugar);
 
         //HTTP request
-        const resp = await axios.get('')//API URL
+
+        const instance = axios.create({
+            baseURL: `https://api.mapbox.com/search/geocode/v6/forward?q=${ lugar }`,
+            params: this.paramsMapbox
+        })
+
+        const resp = await instance.get();
+
         console.log(resp.data.features);
 
         return []; //Return the places that match the search
