@@ -17,8 +17,9 @@ class Busquedas {
         //Peticion HTTP
         //console.log('Ciudad',lugar);
 
-        const resp = await axios.get('https://reqres.in/api/users?page=2')
-        console.log(resp.data.per_page);
+        //HTTP request
+        const resp = await axios.get('')//API URL
+        console.log(resp.data.features);
 
         return []; //Return the places that match the search
             
