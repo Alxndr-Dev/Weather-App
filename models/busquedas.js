@@ -1,6 +1,6 @@
 //We use axios to make the request to the API
 const axios = require('axios');
-
+const pk = process.env.MAPBOX_KEY;
 
 class Busquedas {
 
@@ -15,7 +15,7 @@ class Busquedas {
             'limit': 5,
             'proximity': 'ip',
             'language': 'es',
-            'access_token': ''
+            'access_token': pk
         }
     }
 
