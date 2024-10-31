@@ -6,14 +6,13 @@ const {
     inquirerMenu,
     pausa,
     leerInput,
-    listadoTareasBorrar,
+    listadoLugares,
     confirmar,
     mostrarListadoChecklist
 } = require("./helpers/inquirer");
 
 const Busquedas = require("./models/busquedas");
 
-console.log(process.env);
 
 const main = async () => {
 
@@ -32,15 +31,24 @@ const main = async () => {
         switch (opt) {
             case 1:
 
-                const lugar = await leerInput('Ciudad: ');
-                await busquedas.ciudad(lugar);
+                //We ask the user for the city
+                const termino = await leerInput('Ciudad: ');
+
+                //We search the city
+                const lugares = await busquedas.ciudad(termino);
+
+                //We show the cities
+                const id = await listadoLugares(lugares);
+
+                //We select the city by id to extract the information
+                const lugarSel = lugares.find(l => l.id === id);
 
 
-
+                //Showing the information of the city
                 console.log('\nInformacion de la ciudad \n'.green);
-                console.log('Ciudad: '.cyan);
-                console.log('Lat: '.cyan);
-                console.log('Lng: '.cyan);
+                console.log(`${'Ciudad: '.cyan} ${lugarSel.nombre}`);
+                console.log(`${'Lat: '.cyan} ${lugarSel.lat}`);
+                console.log(`${'Lng: '.cyan} ${lugarSel.lng}`);
                 console.log('Temperatura: '.cyan);
                 console.log('Minima: '.cyan);
                 console.log('Maxima: '.cyan);

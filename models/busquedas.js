@@ -19,7 +19,7 @@ class Busquedas {
         }
     }
 
-    async ciudad( lugar = ''){
+    async ciudad( lugar = '' ){
 
         try{
 
@@ -30,12 +30,19 @@ class Busquedas {
             params: this.paramsMapbox
         })
 
+        //We make the request
         const resp = await instance.get();
 
-        console.log(resp.data.features);
+        //We return the places that match the search
+        //We use the map method to get a new array with the places
+        return resp.data.features.map( lugar =>({
+            id: lugar.id,
+            nombre: lugar.properties.full_address,
+            lng: lugar.geometry.coordinates[0],
+            lat: lugar.geometry.coordinates[1]
+        }));
 
-        return []; //Return the places that match the search
-            
+        
         }catch(error){
             return []; //Return the places that match the search
         }
