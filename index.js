@@ -43,15 +43,19 @@ const main = async () => {
                 //We select the city by id to extract the information
                 const lugarSel = lugares.find(l => l.id === id);
 
+                //Weather
+                const clima = await busquedas.climaLugar(lugarSel.lat, lugarSel.lng);
 
                 //Showing the information of the city
+                console.clear();
                 console.log('\nInformacion de la ciudad \n'.green);
                 console.log(`${'Ciudad: '.cyan} ${lugarSel.nombre}`);
                 console.log(`${'Lat: '.cyan} ${lugarSel.lat}`);
                 console.log(`${'Lng: '.cyan} ${lugarSel.lng}`);
-                console.log('Temperatura: '.cyan);
-                console.log('Minima: '.cyan);
-                console.log('Maxima: '.cyan);
+                console.log(`${'Temperatura: '.cyan} ${clima.temp}`);
+                console.log(`${'Minima: '.cyan} ${clima.min}`);
+                console.log(`${'Maxima: '.cyan} ${clima.max}`);
+                console.log(`${'Como esta el clima: '.cyan} ${clima.desc}`);
                 break;
         
             case 2:
