@@ -11,10 +11,29 @@ class Busquedas {
     dbPath = './db/database.json';
 
     constructor(){
-        //TODO: leer DB si existe
+        //We read the history
+        this.leerDB();
     }
 
 //GETTERS
+
+    get historialCapitalizado(){
+
+        //We capitalize the first letter of the history
+        return this.historial.map( lugar =>{
+
+            //We split the history by spaces
+            let palabras = lugar.split(' ');
+
+            //We capitalize the first letter of the history
+            palabras = palabras.map( p => p[0].toUpperCase() + p.substring(1));
+
+            //We join the history
+            return palabras.join(' ');
+        });
+        
+    }
+
     get paramsMapbox(){
         return {
             'limit': 5,
@@ -98,6 +117,9 @@ class Busquedas {
         if(this.historial.includes(lugar.toLocaleLowerCase())){
             return;
         }
+        
+        //We check if the history has more than 5 places
+        this.historial = this.historial.splice(0,5);
 
         //We add the place to the history
         this.historial.unshift(lugar.toLocaleLowerCase());
@@ -118,6 +140,20 @@ class Busquedas {
 
     //We read the history
     leerDB(){
+
+        //We check if the file exists
+        if(!fs.existsSync(this.dbPath)){
+            return;
+        }
+
+        //We read the file
+        const info = fs.readFileSync(this.dbPath, {encoding: 'utf-8'});
+
+        //We parse the data
+        const data = JSON.parse(info);
+
+        //We save the history
+        this.historial = data.historial;
 
     }
 
