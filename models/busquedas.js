@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 //We use axios to make the request to the API
 const axios = require('axios');
 const pk = process.env.MAPBOX_KEY;
@@ -5,7 +7,8 @@ const pk2 = process.env.OPENWEATHER_KEY;
 
 class Busquedas {
 
-    historial = ['Madrid', 'Bogota', 'San Jose', 'Buenos Aires', 'Caracas'];
+    historial = [];
+    dbPath = './db/database.json';
 
     constructor(){
         //TODO: leer DB si existe
@@ -75,7 +78,7 @@ class Busquedas {
 
         //We extract the data of the weather
         const { weather, main } = resp.data;
-        
+
         //We return the data of the weather
         return {
             desc: weather[0].description,
@@ -87,6 +90,35 @@ class Busquedas {
         } catch (error){
             console.log(error);
         }
+    }
+
+    agregarHistorial( lugar = '' ){
+
+        //We check if the place is already in the history
+        if(this.historial.includes(lugar.toLocaleLowerCase())){
+            return;
+        }
+
+        //We add the place to the history
+        this.historial.unshift(lugar.toLocaleLowerCase());
+
+        //We save the history
+        this.guardarDB();
+    }
+
+    //We save the history
+    guardarDB(){
+
+        const payload = {
+            historial: this.historial
+        };
+
+        fs.writeFileSync(this.dbPath, JSON.stringify(payload));
+    }
+
+    //We read the history
+    leerDB(){
+
     }
 
 }

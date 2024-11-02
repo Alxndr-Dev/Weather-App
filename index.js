@@ -40,8 +40,13 @@ const main = async () => {
                 //We show the cities
                 const id = await listadoLugares(lugares);
 
+                //If the user selects 0, we go back to the menu
+                if( id === '0' ) continue;
+
                 //We select the city by id to extract the information
                 const lugarSel = lugares.find(l => l.id === id);
+
+                busquedas.agregarHistorial(lugarSel.nombre);
 
                 //Weather
                 const clima = await busquedas.climaLugar(lugarSel.lat, lugarSel.lng);
@@ -59,7 +64,10 @@ const main = async () => {
                 break;
         
             case 2:
-                console.log('Historial');
+                busquedas.historial.forEach( (lugar, i) =>{
+                    const idx = `${i + 1}.`.green;
+                    console.log(`${idx} ${lugar}`);
+                })
                 break;
 
             case 0:
